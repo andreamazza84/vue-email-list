@@ -21,6 +21,7 @@ let app = new Vue({
         number: 1,
         boxes: [], 
         counter: 0,
+        color: false,
     },
     methods:{
         request: function(counter, list) {
@@ -52,7 +53,6 @@ let app = new Vue({
             })
             this.boxes = newList;
             console.log(newList);
-            
         },
     },
     
