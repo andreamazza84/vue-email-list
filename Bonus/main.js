@@ -17,18 +17,17 @@ let app = new Vue({
     data: {
         error: false,
         errorMessage: "",
-        mailingList: [],
-        length: 10,
+        number: 0,
+        box: []
     },
-    methods:{},
-    mounted(){
-        for (let index = 0; index < this.length; index++) {
-            
-            axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
+    methods:{
+        request: function() {
+            axios.get('https://flynn.boolean.careers/exercises/api/random/int')
             
             .then(response => {       
-                const email = response.data.response;
-                this.mailingList.push(email);
+                this.number = response.data.response;
+                console.log(response.data.response);
+                //this.mailingList.push(email);
             })
 
             .catch(error => {
@@ -39,5 +38,6 @@ let app = new Vue({
                 this.error = true;
             }) 
         }
-    }
+    },
+    mounted(){}
 });
