@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email generator</title>
+    <title>GRID</title>
 </head>
 <style>
     *{
@@ -30,11 +30,23 @@
         margin: 20px 0;
     }
     .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         float: left;
         width: calc(900px / 6);
         height: calc(900px / 6);
         background-color: blue;
         border: 1px solid black;
+    }
+    .result{
+        font-size: 50px;
+    }
+    .bg-y{
+        background-color: yellow;
+    }
+    .bg-g{
+        background-color: green;
     }
 
 </style>
@@ -44,42 +56,9 @@
 
         <h1 v-if="error">{{errorMessage}}</h1>
         <div class="container">
-            <div class="box" @click="request()"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
+            <div v-for="(box, index) in boxes" class="box" @click="request(index, boxes)" :class="(index===counter)?'bg-y':'bg-g'">
+                <div class="result">{{box}}</div>
+            </div>
         </div>
 
     </div>

@@ -17,27 +17,57 @@ let app = new Vue({
     data: {
         error: false,
         errorMessage: "",
-        number: 0,
-        box: []
+        boxesLength: 36,
+        number: 1,
+        boxes: [], 
+        counter: 0,
     },
     methods:{
-        request: function() {
+        request: function(counter, list) {
+            let number;
+            this.counter = counter;
+            console.log("counter "+ counter);
+            
+            //request
             axios.get('https://flynn.boolean.careers/exercises/api/random/int')
             
             .then(response => {       
-                this.number = response.data.response;
-                console.log(response.data.response);
-                //this.mailingList.push(email);
+                number = response.data.response;
+                this.number = number;
             })
-
+            
             .catch(error => {
                 console.log(error.response);
                 const status = error.response.status;
                 const statusText = error.response.statusText;
                 this.errorMessage = `Error ${status} Page ${statusText}`;
                 this.error = true;
-            }) 
+            })
+            
+            const newList = list.map((element, index) => {
+                if (index === counter) {
+                    console.log("box " + element);
+                    return element = this.number;
+                }
+            })
+            this.boxes = newList;
+            console.log(newList);
+            
+        },
+    },
+    
+    created(){
+        for (let index = 0; index < this.boxesLength; index++) {
+            this.boxes[index] = 0;
+            //console.log(this.boxesLength);
         }
     },
-    mounted(){}
+    
 });
+
+// [    0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//     0, 0, 0, 0, 0, 0, 0, 0, 0,
+//     0, 0, 0, 0, 0, 0, 0, 0, 0,
+//     0, 0, 0, 0, 0, 0, 0, 0, 0,
+// ],
+
