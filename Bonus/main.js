@@ -27,7 +27,6 @@ let app = new Vue({
         request: function(counter, list) {
             let number;
             this.counter = counter;
-            console.log("counter "+ counter);
             
             //request
             axios.get('https://flynn.boolean.careers/exercises/api/random/int')
@@ -38,7 +37,6 @@ let app = new Vue({
             })
             
             .catch(error => {
-                console.log(error.response);
                 const status = error.response.status;
                 const statusText = error.response.statusText;
                 this.errorMessage = `Error ${status} Page ${statusText}`;
@@ -47,27 +45,22 @@ let app = new Vue({
             
             const newList = list.map((element, index) => {
                 if (index === counter) {
-                    console.log("box " + element);
                     return element = this.number;
+                }
+                else{
+                    return element;
                 }
             })
             this.boxes = newList;
-            console.log(newList);
         },
     },
     
     created(){
         for (let index = 0; index < this.boxesLength; index++) {
             this.boxes[index] = 0;
-            //console.log(this.boxesLength);
         }
     },
     
 });
 
-// [    0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//     0, 0, 0, 0, 0, 0, 0, 0, 0,
-//     0, 0, 0, 0, 0, 0, 0, 0, 0,
-//     0, 0, 0, 0, 0, 0, 0, 0, 0,
-// ],
 
