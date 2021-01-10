@@ -17,32 +17,16 @@ let app = new Vue({
     data: {
         error: false,
         errorMessage: "",
-        boxesLength: 36,
-        number: 1,
         boxes: [], 
+        boxesLength: 36,
+        number: 0,
         counter: 0,
-        color: false,
     },
     methods:{
-        request: function(counter, list) {
-            let number;
+        get: function(counter, list) {
             this.counter = counter;
-            
-            //request
-            axios.get('https://flynn.boolean.careers/exercises/api/random/int')
-            
-            .then(response => {       
-                number = response.data.response;
-                this.number = number;
-            })
-            
-            .catch(error => {
-                const status = error.response.status;
-                const statusText = error.response.statusText;
-                this.errorMessage = `Error ${status} Page ${statusText}`;
-                this.error = true;
-            })
-            
+            this.request();
+            // Se il counter passato dal click coincide con l'index dell'array, il numero random richiesto viene aggiunto all'array. 
             const newList = list.map((element, index) => {
                 if (index === counter) {
                     return element = this.number;
@@ -51,15 +35,38 @@ let app = new Vue({
                     return element;
                 }
             })
+            //L'array viene aggiornato 
             this.boxes = newList;
+            console.log(newList);
+        },
+        request: function() {
+            //request
+            axios.get('https://flynn.boolean.careers/exercises/api/random/int')
+                
+            .then(response => {       
+                this.number = response.data.response;
+            })
+            
+            .catch(error => {
+                const status = error.response.status;
+                const statusText = error.response.statusText;
+                this.errorMessage = `Error ${status} Page ${statusText}`;
+                this.error = true;
+            })
         },
     },
     
     created(){
+        //Crea l'array boxes. 
         for (let index = 0; index < this.boxesLength; index++) {
             this.boxes[index] = 0;
         }
     },
+
+    mounted(){
+        //Effettua la prima richiesta AJAX al caricamento della pagina.
+        this.get(this.counter, this.boxes);
+    }
     
 });
 

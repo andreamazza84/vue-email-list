@@ -12,41 +12,40 @@
         box-sizing: border-box;
     }
     body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
         font-family: Arial, Helvetica, sans-serif;
-        background-color: #fafafa;
-    }
-    .container{
-        margin: 20px auto;
-        width: 900px;
-        height: 900px;
         background-color: #eaeaea;
     }
-    .container:after{
-        display: table;
-        content: "";
-        clear: both;
-    }
-    h1{
-        margin: 20px 0;
+    .container{
+        display: flex;
+        flex-wrap: wrap;
+        width: 600px;
+        height: 600px;
     }
     .box{
         display: flex;
         justify-content: center;
         align-items: center;
-        float: left;
-        width: calc(900px / 6);
-        height: calc(900px / 6);
-        background-color: blue;
+        width: calc(100% / 6);
+        height: calc(100% / 6);
         border: 1px solid black;
+        cursor: pointer;
+        background-color: #222;
+        color: white;
     }
     .result{
         font-size: 50px;
     }
     .bg-y{
         background-color: yellow;
+        color: black;
     }
     .bg-g{
         background-color: green;
+        color: black;
     }
 
 </style>
@@ -55,8 +54,8 @@
     <div id="root">
 
         <h1 v-if="error">{{errorMessage}}</h1>
-        <div class="container">
-            <div v-for="(box, index) in boxes" class="box" @click="request(index, boxes)" :class="(box <= 5 && box >= 0)?'bg-y':'bg-g'">
+        <div v-else class="container">
+            <div v-for="(box, index) in boxes" class="box" @click="get(index, boxes)" :class="(box <= 5 && box > 0) ?'bg-y': (box > 5) ? 'bg-g' : ''">
                 <div class="result">{{box}}</div>
             </div>
         </div>
@@ -65,8 +64,10 @@
 
     <!-- Axios CDN-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
-    <!-- VueJs CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- VueJs Development CDN -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <!-- VueJS Production CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <!-- Script -->
     <script src="main.js"></script>
 </body>
